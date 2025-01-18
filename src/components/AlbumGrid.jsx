@@ -1,28 +1,36 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
-import { Card, CardContent } from '@/components/ui/card'
-
-interface Album {
-  id: string
-  title: string
-  coverImage: string
-  photoCount: number
-}
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function AlbumGrid() {
-  const [albums, setAlbums] = useState<Album[]>([])
+  const [albums, setAlbums] = useState([]);
 
   useEffect(() => {
     // In a real app, you'd fetch this data from an API
     setAlbums([
-      { id: '1', title: 'Summer Vacation 2023', coverImage: '/placeholder.svg?height=200&width=300', photoCount: 42 },
-      { id: '2', title: 'City Tour', coverImage: '/placeholder.svg?height=200&width=300', photoCount: 28 },
-      { id: '3', title: 'Romantic Date Night', coverImage: '/placeholder.svg?height=200&width=300', photoCount: 15 },
-    ])
-  }, [])
+      {
+        id: "1",
+        title: "Summer Vacation 2023",
+        coverImage: "/placeholder.webp",
+        photoCount: 42,
+      },
+      {
+        id: "2",
+        title: "City Tour",
+        coverImage: "/placeholder.webp",
+        photoCount: 28,
+      },
+      {
+        id: "3",
+        title: "Romantic Date Night",
+        coverImage: "/placeholder.webp",
+        photoCount: 15,
+      },
+    ]);
+  }, []);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -44,6 +52,5 @@ export default function AlbumGrid() {
         </Link>
       ))}
     </div>
-  )
+  );
 }
-
