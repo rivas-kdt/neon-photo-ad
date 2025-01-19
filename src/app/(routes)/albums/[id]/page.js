@@ -4,47 +4,26 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Upload } from 'lucide-react';
+import UploadModal from "@/components/uploadModal";
+import ModMod from "@/components/modmod";
 
 // This would typically come from a database or API
-const getAlbum = async (id) => {
-  const albums = {
-    1: {
-      id: "1",
-      title: "Summer Vacation 2023",
-      photos: [
-        {
-          id: "1",
-          src: "/placeholder.webp",
-          alt: "Beach sunset",
-          date: "2023-07-15",
-          location: "Malibu, CA",
-        },
-        {
-          id: "2",
-          src: "/placeholder.webp",
-          alt: "Mountain hike",
-          date: "2023-07-16",
-          location: "Yosemite, CA",
-        },
-        {
-          id: "3",
-          src: "/placeholder.webp",
-          alt: "City skyline",
-          date: "2023-07-17",
-          location: "San Francisco, CA",
-        },
-      ],
-    },
-    2: { id: "2", title: "City Tour", photos: [] },
-    3: { id: "3", title: "Romantic Date Night", photos: [] },
-    4: { id: "4", title: "Romantic Date Night2", photos: [] },
-  };
-  return albums[id] || null;
-};
+async function getAlbum({ id }) {
+  try {
+    const response = await fetch(`http://localhost:3000/api/albums/${id}`);
+    if (!response.ok) {
+      throw new Error("Failed to fetch album");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching album:", error);
+  }
+}
 
 export default async function AlbumPage({ params }) {
-  const id = params.id;
-  const album = await getAlbum(id);
+  const id = (await params).id;
+  const album = await getAlbum({id});
 
   if (!album) {
     notFound();
@@ -55,21 +34,19 @@ export default async function AlbumPage({ params }) {
       <div className="flex justify-between items-center mb-6">
         <Link href="/">
           <Button variant="outline">
-            <ArrowLeft className="mr-2 h-4 w-4" /> Back to Albums
+            <ArrowLeft className=" h-4 w-4" />
           </Button>
         </Link>
         <h1 className="text-3xl font-bold">{album.title}</h1>
-        <Button>
-          <Upload className="mr-2 h-4 w-4" /> Upload Photos
-        </Button>
+        <ModMod id={id}/>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {album.photos.map((photo) => (
           <Link href={`/photo/${photo.id}`} key={photo.id}>
             <div className="relative group">
               <Image
-                src={photo.src || "/placeholder.svg"}
-                alt={photo.alt}
+                src={photo.file_url || "/placeholder.svg"}
+                alt={photo.alt || "Photo"}
                 width={600}
                 height={400}
                 className="w-full h-64 object-cover rounded-md transition-opacity duration-300 group-hover:opacity-75"
