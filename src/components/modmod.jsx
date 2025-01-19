@@ -14,11 +14,9 @@ async function uploadPhoto(formData, albumId) {
         Authorization: `Bearer ${token}`,
       },
     });
-
-    if (!response.ok) {
+    if (!response) {
       throw new Error("Failed to upload photo");
     }
-
     const data = await response.json();
     return data;
   } catch (error) {
@@ -29,6 +27,7 @@ async function uploadPhoto(formData, albumId) {
 
 const ModMod = ({ id }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [album, setAlbum] = useState({ photos: [] });
   const handleUpload = async (formData) => {
     try {
       const uploadedPhoto = await uploadPhoto(formData, id);
