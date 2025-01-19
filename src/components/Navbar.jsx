@@ -10,7 +10,7 @@ const Navbar = () => {
   const navItems = [
     { href: "/", icon: Home, label: "Home" },
     { href: "/camera", icon: Camera, label: "Camera" },
-    { href: "/upload2", icon: Upload, label: "Upload" },
+    { href: "/upload", icon: Upload, label: "Upload" },
     { href: "/map", icon: Map, label: "Map" },
     { href: "/profile", icon: User, label: "Profile" },
   ];

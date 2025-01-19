@@ -1,8 +1,9 @@
+//albums/[id]/page.js
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Upload } from "lucide-react";
+import { ArrowLeft, Upload } from 'lucide-react';
 
 // This would typically come from a database or API
 const getAlbum = async (id) => {
@@ -36,12 +37,13 @@ const getAlbum = async (id) => {
     },
     2: { id: "2", title: "City Tour", photos: [] },
     3: { id: "3", title: "Romantic Date Night", photos: [] },
+    4: { id: "4", title: "Romantic Date Night2", photos: [] },
   };
   return albums[id] || null;
 };
 
 export default async function AlbumPage({ params }) {
-  const id = (await params).id
+  const id = params.id;
   const album = await getAlbum(id);
 
   if (!album) {
@@ -53,12 +55,12 @@ export default async function AlbumPage({ params }) {
       <div className="flex justify-between items-center mb-6">
         <Link href="/">
           <Button variant="outline">
-            <ArrowLeft className=" h-4 w-4" />
+            <ArrowLeft className="mr-2 h-4 w-4" /> Back to Albums
           </Button>
         </Link>
         <h1 className="text-3xl font-bold">{album.title}</h1>
         <Button>
-          <Upload className=" h-4 w-4" />
+          <Upload className="mr-2 h-4 w-4" /> Upload Photos
         </Button>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -83,3 +85,4 @@ export default async function AlbumPage({ params }) {
     </div>
   );
 }
+

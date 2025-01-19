@@ -1,5 +1,5 @@
+//camera/page.js
 "use client";
-
 import { useState, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Camera, Repeat, Download } from "lucide-react";
@@ -115,6 +115,7 @@ export default function CameraPage() {
           </>
         )}
       </div>
+      <div>Talaga</div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
+//upload/page.js
 "use client";
-
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -8,19 +8,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Upload, MapPin } from "lucide-react";
+import { Upload } from "lucide-react";
 
 export default function UploadPhoto() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [location, setLocation] = useState("");
   const fileInputRef = useRef(null);
   const router = useRouter();
   const { toast } = useToast();
-  const inputFileRef = useRef(null);
-  const [blob, setBlob] = useState(null);
 
   const handleFileChange = (event) => {
     const file = event.target.files?.[0];
@@ -42,27 +39,44 @@ export default function UploadPhoto() {
         description: "Please select a photo to upload.",
         variant: "destructive",
       });
+      return;
     }
+    const formData = new FormData();
+    formData.append("file", selectedFile);
+    formData.append("title", title);
+    formData.append("description", description);
+    console.log({File: selectedFile, title: title, description: description});
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        router.push("/login");
+        return;
+      }
+      const response = await fetch("/api/photos/upload", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
 
-    toast({
-      title: "Uploading...",
-      description: "Your photo is being uploaded.",
-    });
-
-    const file = selectedFile;
-    const response = await fetch(`/api/upload?filename=${file.name}`, {
-      method: "POST",
-      body: file,
-    });
-    const newBlob = await response.json();
-    setBlob(newBlob);
-
-    toast({
-      title: "Success",
-      description: "Your photo has been uploaded successfully!",
-    });
-
-    router.push("/");
+      if (response.ok) {
+        toast({
+          title: "Success",
+          description: "Your photo has been uploaded successfully!",
+        });
+        router.push("/");
+      } else {
+        throw new Error("Failed to upload photo");
+      }
+    } catch (error) {
+      console.error("Error uploading photo:", error);
+      toast({
+        title: "Error",
+        description: "Failed to upload photo. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleSelectFile = () => {
@@ -70,7 +84,7 @@ export default function UploadPhoto() {
   };
 
   return (
-    <div className="max-w-md mx-auto">
+    <div className="max-w-md mx-auto mt-8">
       <h1 className="text-3xl font-bold mb-6">Upload Photo</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="flex flex-col items-center">
@@ -115,19 +129,6 @@ export default function UploadPhoto() {
             onChange={(e) => setDescription(e.target.value)}
             rows={3}
           />
-        </div>
-        <div>
-          <Label htmlFor="location">Location</Label>
-          <div className="relative">
-            <MapPin className="absolute left-2 top-2.5 h-5 w-5 text-gray-400" />
-            <Input
-              id="location"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              className="pl-10"
-              placeholder="Add location (optional)"
-            />
-          </div>
         </div>
         <Button type="submit" className="w-full">
           Upload Photo
