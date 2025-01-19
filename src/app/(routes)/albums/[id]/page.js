@@ -10,7 +10,7 @@ import ModMod from "@/components/modmod";
 // This would typically come from a database or API
 async function getAlbum({ id }) {
   try {
-    const response = await fetch(`http://localhost:3000/api/albums/${id}`);
+    const response = await fetch(`/api/albums/${id}`);
     if (!response.ok) {
       throw new Error("Failed to fetch album");
     }
