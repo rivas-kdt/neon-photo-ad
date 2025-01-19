@@ -10,7 +10,7 @@ import ModMod from "@/components/modmod";
 // This would typically come from a database or API
 async function getAlbum({ id }) {
   try {
-    const response = await fetch(`https://tour-photos.vercel.app/api/albums/${id}`);
+    const response = await fetch(`${process.env.BASE_URL}/api/albums/${id}`);
     if (!response.ok) {
       throw new Error("Failed to fetch album");
     }
