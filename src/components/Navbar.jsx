@@ -16,9 +16,9 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-10">
-      <div className="container mx-auto px-4">
-        <ul className="flex justify-around py-2">
+    <nav className="fixed bottom-0 left-0 right-0 h-14 bg-white border-t border-gray-200 z-10">
+      <div className="container mx-auto px-4 h-full">
+        <ul className="flex justify-around items-center h-full">
           {navItems.map((item) => (
             <li key={item.href}>
               <Link
