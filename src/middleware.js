@@ -3,7 +3,7 @@ import { verifyToken } from "./lib/auth";
 
 export function middleware(request) {
   const token = request.cookies.get("token")?.value;
-
+  console.log(token);
   // List of paths that don't require authentication
   const publicPaths = ["/login", "/register"];
 
