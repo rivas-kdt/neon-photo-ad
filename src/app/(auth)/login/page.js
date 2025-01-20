@@ -26,8 +26,8 @@ export default function LoginPage() {
 
       if (response.ok) {
         const data = await response.json();
+        console.log(data)
         localStorage.setItem("token", data.token);
-        document.cookie = `token=${data.token}; path=/; max-age=3600; SameSite=Strict`;
         toast({
           title: "Login Successful",
           description: "Welcome back!",
