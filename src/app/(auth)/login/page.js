@@ -23,16 +23,12 @@ export default function LoginPage() {
         },
         body: JSON.stringify({ email, password }),
       });
-
-      const data = await response.json();
-      console.log(data);
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
         localStorage.setItem("token", data.token);
         toast({
           title: "Login Successful",
-          description: "Welcome back!",
+          description: "Welcome back, data!",
         });
         router.push("/");
       } else {
