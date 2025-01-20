@@ -24,9 +24,11 @@ export default function LoginPage() {
         body: JSON.stringify({ email, password }),
       });
 
+      const data = await response.json();
+      console.log(data);
       if (response.ok) {
         const data = await response.json();
-        console.log(data)
+        console.log(data);
         localStorage.setItem("token", data.token);
         toast({
           title: "Login Successful",
