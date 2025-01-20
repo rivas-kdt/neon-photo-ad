@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { neon } from "@neondatabase/serverless";
-import { setTokenCookie } from "@/lib/auth";
 
 export async function POST(request) {
   try {
@@ -25,7 +24,6 @@ export async function POST(request) {
 
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    setTokenCookie(token)
     return NextResponse.json({ token, user: { id: user.id, username: user.username, email: user.email } });
   } catch (error) {
     console.error("Error logging in:", error);

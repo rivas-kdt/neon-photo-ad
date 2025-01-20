@@ -11,16 +11,6 @@ export function verifyToken(token) {
   }
 }
 
-export function setTokenCookie(token) {
-  cookies().set("token", token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
-    maxAge: 3600, // 1 hour
-    path: "/",
-  })
-}
-
 export function getTokenFromCookie() {
   return cookies().get("token")?.value
 }
