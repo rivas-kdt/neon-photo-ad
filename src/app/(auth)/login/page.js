@@ -51,6 +51,10 @@ export default function LoginPage() {
     }
   };
 
+  
+  const token = localStorage.getItem('token');
+  console.log(token)
+
   return (
     <div className="max-w-md mx-auto mt-8">
       <h1 className="text-3xl font-bold mb-6">Login</h1>
