@@ -2,16 +2,16 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Camera, Map, User, Home, Upload } from "lucide-react";
+import { Image, GalleryVerticalEnd, User, Home, Upload } from "lucide-react";
 
 const Navbar = () => {
   const pathname = usePathname();
 
   const navItems = [
     { href: "/", icon: Home, label: "Home" },
-    { href: "/camera", icon: Camera, label: "Camera" },
+    { href: "/photos", icon: Image, label: "Photos" },
     { href: "/upload", icon: Upload, label: "Upload" },
-    { href: "/map", icon: Map, label: "Map" },
+    { href: "/albums", icon: GalleryVerticalEnd, label: "Albums" },
     { href: "/profile", icon: User, label: "Profile" },
   ];
 

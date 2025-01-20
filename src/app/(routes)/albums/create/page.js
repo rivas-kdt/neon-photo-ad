@@ -39,7 +39,7 @@ export default function CreateAlbum() {
           title: 'Album Created',
           description: 'Your new album has been created successfully.',
         })
-        router.push('/albums')
+        router.push('/')
       } else {
         throw new Error('Failed to create album')
       }
