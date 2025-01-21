@@ -6,8 +6,8 @@ import { verifyToken } from "@/lib/auth";
 export async function GET(request) {
   try {
     const sql = neon(process.env.DATABASE_URL);
-        const token = cookies().get("token");
-        const val = token.value;
+    const token = cookies().get("token");
+    const val = token.value;
     if (!val) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
