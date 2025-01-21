@@ -1,54 +1,30 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { useToast } from '@/hooks/use-toast'
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const router = useRouter()
-  const { toast } = useToast()
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const { login } = useSession();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    try {
-      const response = await fetch('/api/users/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      })
-
-      if (response.ok) {
-        const data = await response.json()
-        localStorage.setItem('token', data.token)
-        toast({
-          title: 'Login Successful',
-          description: 'Welcome back!',
-        })
-        router.push('/')
-      } else {
-        const data = await response.json()
-        toast({
-          title: 'Login Failed',
-          description: data.error || 'Invalid credentials',
-          variant: 'destructive',
-        })
-      }
-    } catch (error) {
-      console.error('Login error:', error)
-      toast({
-        title: 'Login Failed',
-        description: 'An unexpected error occurred. Please try again.',
-        variant: 'destructive',
-      })
-    }
-  }
+    e.preventDefault();
+    await login(formData);
+  };
 
   return (
     <div className="max-w-md mx-auto mt-8">
@@ -59,8 +35,9 @@ export default function LoginPage() {
           <Input
             id="email"
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
             required
           />
         </div>
@@ -69,14 +46,16 @@ export default function LoginPage() {
           <Input
             id="password"
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
             required
           />
         </div>
-        <Button type="submit" className="w-full">Login</Button>
+        <Button type="submit" className="w-full">
+          Login
+        </Button>
       </form>
     </div>
-  )
+  );
 }
-
