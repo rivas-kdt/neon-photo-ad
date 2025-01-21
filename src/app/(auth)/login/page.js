@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useSession } from "@/lib/SessionProvider";
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({
@@ -11,7 +12,7 @@ export default function LoginPage() {
     password: "",
   });
 
-  const { login } = useSession();
+  const { login } = useSession()
 
   const handleChange = (e) => {
     const { name, value } = e.target;
