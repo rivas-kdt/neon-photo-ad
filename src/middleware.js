@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export function middleware(request) {
-  const token = cookies().get("token").value
+  const token = cookies().get("token")
   console.log({mid: token})
   const publicPaths = ["/login", "/register"];
 
