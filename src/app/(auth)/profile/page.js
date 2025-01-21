@@ -18,12 +18,12 @@ export default function ProfilePage() {
   const { logout } = useSession();
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      router.push("/login"); // Redirect if no token exists
+      return;
+    }
     const fetchProfile = async () => {
-      const token = localStorage.getItem("token")
-      if (!token) {
-        router.push("/login"); // Redirect if no token exists
-        return;
-      }
       try {
         const response = await fetch("/api/users/profile", {
           headers: {
