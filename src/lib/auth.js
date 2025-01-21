@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 
 export function verifyToken(token) {
@@ -26,9 +25,4 @@ export function getTokenFromCookie() {
     .split("; ")
     .find((row) => row.startsWith("token="));
   return token ? token.split("=")[1] : null;
-}
-
-export async function getTokenCookie() {
-  const token = (await cookies()).get("token")
-  return token
 }
