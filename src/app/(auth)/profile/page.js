@@ -22,14 +22,8 @@ export default function ProfilePage() {
         router.push("/login");
         return;
       }
-
       try {
-        console.log(token);
-        const response = await fetch("/api/users/profile", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch("/api/users/profile");
 
         if (response.ok) {
           const data = await response.json();
