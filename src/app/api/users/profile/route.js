@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server"
-import sql from "@/app/lib/db"
 import { getTokenFromCookie, verifyToken } from "@/app/lib/auth"
 import { neon } from "@neondatabase/serverless";
 
