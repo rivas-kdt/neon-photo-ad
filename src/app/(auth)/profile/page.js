@@ -23,7 +23,11 @@ export default function ProfilePage() {
         return;
       }
       try {
-        const response = await fetch("/api/users/profile");
+        const response = await fetch("/api/users/profile", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         if (response.ok) {
           const data = await response.json();
