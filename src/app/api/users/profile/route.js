@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { getTokenFromCookie, verifyToken } from "@/app/lib/auth"
+import { getTokenFromCookie, verifyToken } from "@/lib/auth";
 import { neon } from "@neondatabase/serverless";
 
 export async function GET(request) {
