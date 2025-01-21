@@ -6,14 +6,14 @@ import { neon } from "@neondatabase/serverless";
 export async function POST(request) {
   try {
     const sql = neon(process.env.DATABASE_URL);
-    const { username, email, password, full_name } = await request.json();
+    const { username, email, password, fullName } = await request.json();
 
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const result = await sql`
       INSERT INTO users (username, email, password_hash, full_name)
-      VALUES (${username}, ${email}, ${hashedPassword}, ${full_name})
+      VALUES (${username}, ${email}, ${hashedPassword}, ${fullName})
       RETURNING id, username, email, full_name
     `;
 

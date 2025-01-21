@@ -33,18 +33,19 @@ export function SessionProvider({ children }) {
     }
   };
 
-  const login = async (email, password) => {
+  const login = async (userData) => {
     try {
       const response = await fetch("/api/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify(userData),
       });
 
       if (response.ok) {
         const data = await response.json();
+        localStorage.setItem("token", data.token);
         setUser(data.user);
         toast({
           title: "Success",
