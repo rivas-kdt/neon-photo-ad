@@ -15,7 +15,9 @@ export function SessionProvider({ children }) {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await fetch("/api/users/profile");
+        const response = await fetch("/api/users/profile", {
+          method: "GET",
+        });
         if (response.ok) {
           const userData = await response.json();
           setUser(userData);
