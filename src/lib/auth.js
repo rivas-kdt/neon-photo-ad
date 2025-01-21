@@ -23,5 +23,5 @@ export function setTokenCookie(token) {
 
 export function getTokenFromCookie() {
   console.log({ cookies: cookies });
-  return cookies.get("token")?.value;
+  return cookies.get("token")
 }
