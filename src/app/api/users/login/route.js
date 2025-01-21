@@ -35,7 +35,12 @@ export async function POST(request) {
     setTokenCookie(token);
     return NextResponse.json({
       token,
-      user: { id: user.id, username: user.username, email: user.email, fullName: user.full_name },
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        fullName: user.full_name,
+      },
     });
   } catch (error) {
     console.error("Error logging in:", error);
