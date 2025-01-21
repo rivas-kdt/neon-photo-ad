@@ -11,10 +11,9 @@ import {
   LogIn,
   UserPlus,
 } from "lucide-react";
-import { useAuth } from "@/hooks/useAuth";
 
 const Navbar = () => {
-  const { user, loading } = useAuth();
+  const user = {uid: "123vawZw12AJna"}
   const pathname = usePathname();
   console.log(user);
 
