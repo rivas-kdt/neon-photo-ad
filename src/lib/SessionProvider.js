@@ -15,7 +15,7 @@ export function SessionProvider({ children }) {
   // Check if the user is authenticated
   useEffect(() => {
     const fetchUser = async () => {
-      const token = document.cookie.split("; ").find((row) => row.startsWith("token="))?.split("=")[1];
+      const token = localStorage.getItem("token");
       if (!token) {
         setUser(null);
         setLoading(false);

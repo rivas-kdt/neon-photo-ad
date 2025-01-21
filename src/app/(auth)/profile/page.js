@@ -122,7 +122,7 @@ export default function ProfilePage() {
         <Button type="submit">Update Profile</Button>
       </form>
 
-      <Button onClick={logout}>
+      <Button onClick={logout} className="mt-2">
         <LogOut className="h-6 w-6" />
         <span className="text-xs mt-1">Logout</span>
       </Button>
