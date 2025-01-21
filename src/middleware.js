@@ -3,14 +3,11 @@ import { getTokenFromCookie, verifyToken } from "./lib/auth";
 
 export function middleware(request) {
   const token = getTokenFromCookie();
+  const userId = verifyToken(token);
+  console.log({token: token, uid: userId})
   const publicPaths = ["/login", "/register"];
 
   if (!publicPaths.includes(request.nextUrl.pathname)) {
-
-    const userId = verifyToken(token);
-    if (!userId) {
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
   }
 
   return NextResponse.next();
