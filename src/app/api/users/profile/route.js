@@ -5,8 +5,7 @@ import { neon } from "@neondatabase/serverless";
 export async function GET(request) {
   try {
     const sql = neon(process.env.DATABASE_URL);
-    const cookie = getTokenFromCookie();
-    const token = cookie.value;
+    const token = request.headers.get("Authorization")?.split(" ")[1];
     if (!token) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
