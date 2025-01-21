@@ -19,10 +19,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const token = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("token="))
-        ?.split("=")[1]; // Get the token from cookies
+      const token = localStorage.getItem("token")
       if (!token) {
         router.push("/login"); // Redirect if no token exists
         return;
