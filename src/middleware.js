@@ -1,15 +1,14 @@
 import { NextResponse } from "next/server";
-import { getTokenFromCookie, verifyToken } from "./lib/auth";
-import { useAuth } from "./hooks/useAuth";
+import { getTokenFromCookie } from "./lib/auth";
 
 export function middleware(request) {
   const token = getTokenFromCookie();
-  const userId = verifyToken(token);
-  const {user} = useAuth
-  console.log({token: token, uid: userId, user: user})
   const publicPaths = ["/login", "/register"];
 
   if (!publicPaths.includes(request.nextUrl.pathname)) {
+    if (!token) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
   }
   return NextResponse.next();
 }
