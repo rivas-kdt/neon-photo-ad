@@ -39,7 +39,7 @@ const Navbar = () => {
             </li>
           ))}
           <li>
-            <Button variant="ghost" className="flex flex-col items-center text-gray-500" onClick={logout}>
+            <Button variant="ghost" className="flex flex-col items-center text-gray-500 p-0" onClick={logout}>
               <LogOut className="h-6 w-6" />
               <span className="text-xs mt-1">Logout</span>
             </Button>
