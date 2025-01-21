@@ -8,12 +8,14 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useSession } from "@/lib/SessionProvider";
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   const { toast } = useToast();
+  const {logout} = useSession()
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -117,6 +119,13 @@ export default function ProfilePage() {
         </div>
         <Button type="submit">Update Profile</Button>
       </form>
+
+      <Button
+        onClick={logout}
+      >
+        <LogOut className="h-6 w-6" />
+        <span className="text-xs mt-1">Logout</span>
+      </Button>
     </div>
   );
 }
