@@ -1,6 +1,6 @@
+// context/SessionProvider.js
 "use client";
-
-import { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 
@@ -12,26 +12,39 @@ export function SessionProvider({ children }) {
   const router = useRouter();
   const { toast } = useToast();
 
+  // Check if the user is authenticated
   useEffect(() => {
-    checkAuth();
-  }, []);
-
-  const checkAuth = async () => {
-    try {
-      const response = await fetch("/api/users/profile");
-      if (response.ok) {
-        const userData = await response.json();
-        setUser(userData);
-      } else {
+    const fetchUser = async () => {
+      const token = document.cookie.split("; ").find((row) => row.startsWith("token="))?.split("=")[1];
+      if (!token) {
         setUser(null);
+        setLoading(false);
+        return;
       }
-    } catch (error) {
-      console.error("Error checking authentication:", error);
-      setUser(null);
-    } finally {
-      setLoading(false);
-    }
-  };
+
+      try {
+        const response = await fetch("/api/users/profile", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          const userData = await response.json();
+          setUser(userData);
+        } else {
+          setUser(null);
+        }
+      } catch (error) {
+        console.error("Error fetching user:", error);
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUser();
+  }, []);
 
   const login = async (userData) => {
     try {
@@ -45,13 +58,12 @@ export function SessionProvider({ children }) {
 
       if (response.ok) {
         const data = await response.json();
-        localStorage.setItem("token", data.token);
         setUser(data.user);
         toast({
           title: "Success",
           description: "Logged in successfully",
         });
-        router.push("/");
+        router.push("/"); // Redirect to home after login
         return true;
       } else {
         const error = await response.json();
@@ -97,45 +109,8 @@ export function SessionProvider({ children }) {
     }
   };
 
-  const register = async (userData) => {
-    try {
-      const response = await fetch("/api/users/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
-
-      if (response.ok) {
-        toast({
-          title: "Success",
-          description: "Registration successful! Please log in.",
-        });
-        router.push("/login");
-        return true;
-      } else {
-        const error = await response.json();
-        toast({
-          title: "Error",
-          description: error.error || "Failed to register",
-          variant: "destructive",
-        });
-        return false;
-      }
-    } catch (error) {
-      console.error("Registration error:", error);
-      toast({
-        title: "Error",
-        description: "An unexpected error occurred",
-        variant: "destructive",
-      });
-      return false;
-    }
-  };
-
   return (
-    <SessionContext.Provider value={{ user, loading, login, logout, register }}>
+    <SessionContext.Provider value={{ user, loading, login, logout }}>
       {children}
     </SessionContext.Provider>
   );
