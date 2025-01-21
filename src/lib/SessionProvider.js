@@ -18,7 +18,7 @@ export function SessionProvider({ children }) {
     const fetchUser = async () => {
       const token = localStorage.getItem("token");
       const tb = getTokenCookie()
-      console.log(tb)
+      console.log({tb: tb})
       if (!token) {
         setUser(null);
         setLoading(false);
