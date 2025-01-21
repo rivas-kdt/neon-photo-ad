@@ -19,6 +19,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    console.log({tokenProf:token})
     if (!token) {
       router.push("/login"); // Redirect if no token exists
       return;
