@@ -1,53 +1,54 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useToast } from "@/hooks/use-toast";
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { useToast } from '@/hooks/use-toast'
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const router = useRouter();
-  const { toast } = useToast();
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const router = useRouter()
+  const { toast } = useToast()
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     try {
-      const response = await fetch("/api/users/login", {
-        method: "POST",
+      const response = await fetch('/api/users/login', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
-      });
+      })
+
       if (response.ok) {
-        const { token } = await response.json();
-        localStorage.setItem("token", token);
+        const data = await response.json()
+        localStorage.setItem('token', data.token)
         toast({
-          title: "Login Successful",
-          description: token || "Welcome back, data!",
-        });
-        router.push("/");
+          title: 'Login Successful',
+          description: 'Welcome back!',
+        })
+        router.push('/')
       } else {
-        const data = await response.json();
+        const data = await response.json()
         toast({
-          title: "Login Failed",
-          description: data.error || "Invalid credentials",
-          variant: "destructive",
-        });
+          title: 'Login Failed',
+          description: data.error || 'Invalid credentials',
+          variant: 'destructive',
+        })
       }
     } catch (error) {
-      console.error("Login error:", error);
+      console.error('Login error:', error)
       toast({
-        title: "Login Failed",
-        description: "An unexpected error occurred. Please try again.",
-        variant: "destructive",
-      });
+        title: 'Login Failed',
+        description: 'An unexpected error occurred. Please try again.',
+        variant: 'destructive',
+      })
     }
-  };
+  }
 
   return (
     <div className="max-w-md mx-auto mt-8">
@@ -73,10 +74,9 @@ export default function LoginPage() {
             required
           />
         </div>
-        <Button type="submit" className="w-full">
-          Login
-        </Button>
+        <Button type="submit" className="w-full">Login</Button>
       </form>
     </div>
-  );
+  )
 }
+

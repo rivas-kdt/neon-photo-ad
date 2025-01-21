@@ -1,13 +1,8 @@
 import { NextResponse } from "next/server";
 import { verifyToken } from "./lib/auth";
-import { cookies } from "next/headers";
 
 export function middleware(request) {
-  const cookieStore = cookies();
-  const token = cookieStore.get("token")?.value;
-
-  console.log({"this is token":token});
-  // List of paths that don't require authentication
+  const token = request.headers.get("Authorization")?.split(" ")[1];
   const publicPaths = ["/login", "/register"];
 
   if (!publicPaths.includes(request.nextUrl.pathname)) {
