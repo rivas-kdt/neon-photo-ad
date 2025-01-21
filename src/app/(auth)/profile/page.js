@@ -15,13 +15,16 @@ export default function ProfilePage() {
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   const { toast } = useToast();
-  const {logout} = useSession()
+  const { logout } = useSession();
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const token = localStorage.getItem("token");
+      const token = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("token="))
+        ?.split("=")[1]; // Get the token from cookies
       if (!token) {
-        router.push("/login");
+        router.push("/login"); // Redirect if no token exists
         return;
       }
       try {
@@ -120,9 +123,7 @@ export default function ProfilePage() {
         <Button type="submit">Update Profile</Button>
       </form>
 
-      <Button
-        onClick={logout}
-      >
+      <Button onClick={logout}>
         <LogOut className="h-6 w-6" />
         <span className="text-xs mt-1">Logout</span>
       </Button>
