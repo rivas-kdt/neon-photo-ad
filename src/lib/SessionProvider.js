@@ -13,26 +13,25 @@ export function SessionProvider({ children }) {
   const { toast } = useToast();
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const response = await fetch("/api/users/profile", {
-          method: "GET",
-        });
-        if (response.ok) {
-          const userData = await response.json();
-          setUser(userData);
-        } else {
-          setUser(null);
-        }
-      } catch (error) {
-        console.error("Error checking authentication:", error);
-        setUser(null);
-      } finally {
-        setLoading(false);
-      }
-    };
     checkAuth();
   }, []);
+
+  const checkAuth = async () => {
+    try {
+      const response = await fetch("/api/users/profile");
+      if (response.ok) {
+        const userData = await response.json();
+        setUser(userData);
+      } else {
+        setUser(null);
+      }
+    } catch (error) {
+      console.error("Error checking authentication:", error);
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const login = async (userData) => {
     try {
