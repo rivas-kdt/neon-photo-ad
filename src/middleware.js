@@ -1,8 +1,9 @@
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { getTokenFromCookie } from "./lib/auth";
 
 export function middleware(request) {
-  const token = getTokenFromCookie();
+  const token = cookies.get("token")
+  console.log(token)
   const publicPaths = ["/login", "/register"];
 
   if (!publicPaths.includes(request.nextUrl.pathname)) {

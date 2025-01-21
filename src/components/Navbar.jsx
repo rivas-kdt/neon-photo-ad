@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 const Navbar = () => {
-  const user = {uid: "123vawZw12AJna"}
+  const user = { uid: "123vawZw12AJna" };
   const pathname = usePathname();
   console.log(user);
 
