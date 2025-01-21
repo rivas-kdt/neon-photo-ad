@@ -13,7 +13,7 @@ export function verifyToken(token) {
 }
 
 export function setTokenCookie(token) {
-  cookies().set("token", token, {
+  cookies.set("token", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
@@ -23,6 +23,6 @@ export function setTokenCookie(token) {
 }
 
 export function getTokenFromCookie() {
-  console.log(cookies)
+  console.log(cookies);
   return cookies.get("token")?.value;
 }
