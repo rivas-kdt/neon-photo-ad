@@ -34,7 +34,7 @@ export async function GET(request) {
     if (!val) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-    const userId = verifyToken(token);
+    const userId = verifyToken(val);
     if (!userId) {
       return NextResponse.json({ error: "Invalid token" }, { status: 401 });
     }
