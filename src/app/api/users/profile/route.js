@@ -26,6 +26,7 @@ export async function GET(request) {
   //   return NextResponse.json(users[0]);
   // }
   try {
+    const sql = neon(process.env.DATABASE_URL);
     const token = request.headers.get("Authorization")?.split(" ")[1];
     if (!token) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
