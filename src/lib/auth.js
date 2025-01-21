@@ -22,6 +22,8 @@ export function setTokenCookie(token) {
 }
 
 export function getTokenFromCookie() {
-  console.log({ cookies: cookies });
-  return cookies.get("token")?.value;
+  const token = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("token="));
+  return token ? token.split("=")[1] : null;
 }

@@ -16,12 +16,12 @@ export default function ProfilePage() {
   const { toast } = useToast();
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      router.push("/login");
+      return;
+    }
     const fetchProfile = async () => {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        router.push("/login");
-        return;
-      }
       try {
         const response = await fetch("/api/users/profile", {
           headers: {
