@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
-import { cookies } from "next/headers";
+import { getTokenCookie } from "./auth";
 
 const SessionContext = createContext();
 
@@ -17,8 +17,8 @@ export function SessionProvider({ children }) {
   useEffect(() => {
     const fetchUser = async () => {
       const token = localStorage.getItem("token");
-      const tb = (await cookies()).get("token")
-      console.log({"tb":tb})
+      const tb = getTokenCookie()
+      console.log(tb)
       if (!token) {
         setUser(null);
         setLoading(false);

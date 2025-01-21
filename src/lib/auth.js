@@ -27,3 +27,8 @@ export function getTokenFromCookie() {
     .find((row) => row.startsWith("token="));
   return token ? token.split("=")[1] : null;
 }
+
+export async function getTokenCookie() {
+  const token = (await cookies()).get("token")
+  return token
+}
