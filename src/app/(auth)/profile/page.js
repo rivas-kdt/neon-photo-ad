@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useSession } from "@/lib/SessionProvider";
+import { LogOut } from "lucide-react";
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState(null);
@@ -19,7 +20,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log({tokenProf:token})
+    console.log({ tokenProf: token });
     if (!token) {
       router.push("/login"); // Redirect if no token exists
       return;
