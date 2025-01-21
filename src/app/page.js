@@ -8,11 +8,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Plus, Album } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import RecentPhotos from "@/components/RecentPhotos";
+import { getTokenFromCookie } from "@/lib/auth";
 
 export default function Home() {
   const [albums, setAlbums] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
+  const token = getTokenFromCookie()
+  console.log({home:token})
 
   useEffect(() => {
     const fetchAlbums = async () => {
