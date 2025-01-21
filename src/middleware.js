@@ -6,9 +6,6 @@ export function middleware(request) {
   const publicPaths = ["/login", "/register"];
 
   if (!publicPaths.includes(request.nextUrl.pathname)) {
-    if (!token) {
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
 
     const userId = verifyToken(token);
     if (!userId) {
