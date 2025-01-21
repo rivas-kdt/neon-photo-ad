@@ -25,10 +25,10 @@ export default function LoginPage() {
       });
       if (response.ok) {
         const { token } = await response.json();
-        localStorage.setItem("token", data.token);
+        localStorage.setItem("token", token);
         toast({
           title: "Login Successful",
-          description: data || "Welcome back, data!",
+          description: token || "Welcome back, data!",
         });
         router.push("/");
       } else {
