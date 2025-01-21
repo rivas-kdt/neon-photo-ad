@@ -1,5 +1,6 @@
-import { cookies } from "next/headers"
+import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
+import { cookies } from "next/headers";
 
 export function verifyToken(token) {
   try {
@@ -18,10 +19,10 @@ export function setTokenCookie(token) {
     sameSite: "strict",
     maxAge: 3600, // 1 hour
     path: "/",
-  })
+  });
 }
 
 export function getTokenFromCookie() {
-  return cookies().get("token")?.value
+  console.log(cookies)
+  return cookies.get("token")?.value;
 }
-
