@@ -17,11 +17,17 @@ export default function ProfilePage() {
 
   useEffect(() => {
     const fetchProfile = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        router.push("/login");
+        return;
+      }
       try {
         const response = await fetch("/api/users/profile", {
-          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
-
         if (response.ok) {
           const data = await response.json();
           setProfile(data);
