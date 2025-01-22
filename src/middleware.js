@@ -1,10 +1,8 @@
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { getTokenFromCookie } from "./lib/auth";
 
 export function middleware(request) {
-  const cookieStore = cookies();
-  const jwt = cookieStore.get("_vercel_jwt")
-  const token = jwt.value;
+  const token = getTokenFromCookie();
   const publicPaths = ["/login", "/register"];
 
   if (!publicPaths.includes(request.nextUrl.pathname)) {

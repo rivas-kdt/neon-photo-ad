@@ -22,7 +22,8 @@ export async function setTokenCookie(token) {
 }
 
 export async function getTokenFromCookie() {
-  const cookie = cookies().get("jwt"||"token")
-  const token = cookie.value
+  const cookieStore = cookies();
+  const jwt = cookieStore.get("_vercel_jwt")
+  const token = jwt.value;
   return token
 }
