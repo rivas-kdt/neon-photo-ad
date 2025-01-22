@@ -1,8 +1,7 @@
-"use server"
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 
-export async function verifyToken(token) {
+export function verifyToken(token) {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     return decoded.userId;
@@ -12,7 +11,7 @@ export async function verifyToken(token) {
   }
 }
 
-export async function setTokenCookie(token) {
+export function setTokenCookie(token) {
   cookies().set("token", token, {
     httpOnly: true,
     sameSite: "strict",
@@ -21,7 +20,7 @@ export async function setTokenCookie(token) {
   });
 }
 
-export async function getTokenFromCookie() {
+export function getTokenFromCookie() {
   const cookie = cookies().get("token")
   const token = cookie.value
   return token

@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
-import { getTokenFromCookie, setTokenCookie } from "./auth";
+import { getTokenFromCookie } from "./auth";
 
 const SessionContext = createContext();
 
