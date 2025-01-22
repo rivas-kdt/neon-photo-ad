@@ -22,7 +22,7 @@ export async function setTokenCookie(token) {
 }
 
 export async function getTokenFromCookie() {
-  const cookie = cookies().get("token")
+  const cookie = cookies().get("jwt"||"token")
   const token = cookie.value
   return token
 }
