@@ -5,7 +5,6 @@ export function middleware(request) {
   const cookieStore = cookies();
   const jwt = cookieStore.get("_vercel_jwt")
   const token = jwt.value;
-  console.log({ mid: request.headers, mid2: token });
   const publicPaths = ["/login", "/register"];
 
   if (!publicPaths.includes(request.nextUrl.pathname)) {

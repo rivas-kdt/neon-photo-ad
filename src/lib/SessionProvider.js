@@ -3,7 +3,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
-import { getTokenFromCookie } from "./auth";
 
 const SessionContext = createContext();
 
@@ -59,11 +58,11 @@ export function SessionProvider({ children }) {
       if (response.ok) {
         const data = await response.json();
         console.log(data);
+        router.push("/");
         toast({
           title: "Success",
           description: "Logged in successfully",
         });
-        router.push("/"); // Redirect to home after login
         return true;
       } else {
         const error = await response.json();
