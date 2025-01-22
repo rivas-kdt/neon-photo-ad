@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
+import { getTokenFromCookie, setTokenCookie } from "./auth";
 
 const SessionContext = createContext();
 
@@ -15,20 +16,15 @@ export function SessionProvider({ children }) {
   // Check if the user is authenticated
   useEffect(() => {
     const fetchUser = async () => {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        setUser(null);
-        setLoading(false);
-        return;
-      }
-
       try {
-        const response = await fetch("/api/users/profile", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
+        const response = await fetch(
+          "https://express-api-tawny-alpha.vercel.app/user",
+          {
+            method: "GET", // Assuming it's a GET request
+            credentials: "include", // This ensures cookies are included in the request
+          }
+        );
+        console.log(response);
         if (response.ok) {
           const userData = await response.json();
           setUser(userData);
@@ -48,17 +44,21 @@ export function SessionProvider({ children }) {
 
   const login = async (userData) => {
     try {
-      const response = await fetch("/api/users/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
+      const response = await fetch(
+        "https://express-api-tawny-alpha.vercel.app/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+          credentials: "include",
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
-        setUser(data.user);
+        console.log(data);
         toast({
           title: "Success",
           description: "Logged in successfully",
@@ -87,9 +87,12 @@ export function SessionProvider({ children }) {
 
   const logout = async () => {
     try {
-      const response = await fetch("/api/users/logout", {
-        method: "POST",
-      });
+      const response = await fetch(
+        "https://express-api-tawny-alpha.vercel.app/logout",
+        {
+          method: "POST",
+        }
+      );
 
       if (response.ok) {
         setUser(null);
