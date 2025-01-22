@@ -16,15 +16,12 @@ export function SessionProvider({ children }) {
   // Check if the user is authenticated
   useEffect(() => {
     const fetchUser = async () => {
-      const token = await getTokenFromCookie()
       try {
         const response = await fetch(
           "https://express-api-tawny-alpha.vercel.app/user",
           {
             method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+            credentials: 'include',
           }
         );
         console.log(response);
