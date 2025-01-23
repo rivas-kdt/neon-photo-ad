@@ -24,7 +24,7 @@ export default async function AlbumPage({ params }) {
     { withCredentials: true }
   );
   const album = data.json;
-  console.log(album);
+  console.log(data);
 
   return (
     <div className="container mx-auto px-4 py-8">
