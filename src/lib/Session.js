@@ -1,3 +1,4 @@
+"use client"
 import { useToast } from "@/hooks/use-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -87,6 +88,40 @@ export const SessionProvider = ({ children }) => {
     }
   };
 
+  const register = async (userData) => {
+    try {
+      const response = await axios.post(
+        "https://express-api-tawny-alpha.vercel.app/register",
+        userData,
+        { withCredentials: true }
+      );
+      if (response.status === 201) {
+        setUser(response.data);
+        toast({
+          title: "Success",
+          description: "Account created successfully. Logged in.",
+        });
+        router.push("/"); // Redirect to home or dashboard
+      } else {
+        toast({
+          title: "Error",
+          description: response.data.error || "Failed to register",
+          variant: "destructive",
+        });
+        return false;
+      }
+    } catch (error) {
+      console.error("Register error:", error);
+      toast({
+        title: "Error",
+        description:
+          error.response?.data?.error || "An unexpected error occurred",
+        variant: "destructive",
+      });
+      return false;
+    }
+  };
+
   return (
     <SessionContext.Provider value={{ user, loading, login, logout }}>
       {children}
@@ -95,9 +130,9 @@ export const SessionProvider = ({ children }) => {
 };
 
 export const useSession = () => {
-    const context = useContext(SessionContext);
-    if(!context){
-        console.log("useSession must be within a Session Provider")
-    }
-    return context
-}
+  const context = useContext(SessionContext);
+  if (!context) {
+    console.log("useSession must be within a Session Provider");
+  }
+  return context;
+};
