@@ -32,10 +32,15 @@ export const SessionProvider = ({ children }) => {
 
   const login = async (userData) => {
     try {
-      const response = axios.post(
+      const response = await axios.post(
         "https://express-api-tawny-alpha.vercel.app/auth/login",
-        JSON.stringify(userData),
-        { withCredentials: true }
+        userData,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
       if (response.status === 200) {
         setUser(response.data);
