@@ -70,7 +70,7 @@ export default function RegisterPage() {
           <Input
             id="fullName"
             type="text"
-            name="fullName"
+            name="full_name"
             value={formData.full_name}
             onChange={handleChange}
             required
