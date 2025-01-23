@@ -4,20 +4,26 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import ModMod from "@/components/modmod";
+import axios from "axios";
+export const dynamic = "force-dynamic";
 
 // This would typically come from a database or API
 
-export async function getAlbum(id) {
-  console.log(`https://express-api-tawny-alpha.vercel.app/albumsp/id=${id}`);
-  const albumsp = fetch(
-    `https://express-api-tawny-alpha.vercel.app/albumsp/id=${id}`
-  ).then((res) => res.json());
-  return albumsp;
-}
+// export async function getAlbum(id) {
+//   console.log(`https://express-api-tawny-alpha.vercel.app/albumsp/id=${id}`);
+//   const albumsp = fetch(
+//     `https://express-api-tawny-alpha.vercel.app/albumsp/id=${id}`
+//   ).then((res) => res.json());
+//   return albumsp;
+// }
 
 export default async function AlbumPage({ params }) {
   const { slug } = await params;
-  const album = await getAlbum(slug);
+  const data = await axios.get(
+    `https://express-api-tawny-alpha.vercel.app/albumsp/id=${slug}`,
+    { withCredentials: true }
+  );
+  const album = data.json;
   console.log(album);
 
   return (
@@ -28,7 +34,7 @@ export default async function AlbumPage({ params }) {
             <ArrowLeft className=" h-4 w-4" />
           </Button>
         </Link>
-        <h1 className="text-3xl font-bold">{album.title}</h1>
+        <h1 className="text-3xl font-bold">{"album.title"}</h1>
         <ModMod id={id} />
       </div>
       {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

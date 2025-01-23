@@ -1,15 +1,14 @@
-"use client"
-
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { Camera, Map, User, Home, Upload, LogOut } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { useSession } from "@/lib/SessionProvider"
+"use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Camera, Map, User, Home, Upload, LogOut } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useSession } from "@/lib/SessionProvider";
 
 const Navbar = () => {
-  const pathname = usePathname()
-  const { user, logout } = useSession()
-  console.log(user)
+  const pathname = usePathname();
+  const { user, logout, loading } = useSession();
+  console.log(user);
 
   const navItems = [
     { href: "/", icon: Home, label: "Home" },
@@ -17,10 +16,14 @@ const Navbar = () => {
     { href: "/upload", icon: Upload, label: "Upload" },
     { href: "/map", icon: Map, label: "Map" },
     { href: "/profile", icon: User, label: "Profile" },
-  ]
+  ];
+
+  if (loading) {
+    return <div>loading</div>;
+  }
 
   if (!user) {
-    return null
+    return null;
   }
 
   return (
@@ -31,18 +34,28 @@ const Navbar = () => {
             <li key={item.href}>
               <Link
                 href={item.href}
-                className={`flex flex-col items-center ${pathname === item.href ? "text-blue-500" : "text-gray-500"}`}
+                className={`flex flex-col items-center ${
+                  pathname === item.href ? "text-blue-500" : "text-gray-500"
+                }`}
               >
                 <item.icon className="h-6 w-6" />
                 <span className="text-xs mt-1">{item.label}</span>
               </Link>
             </li>
           ))}
+          <li>
+            <button
+              onClick={logout}
+              className="flex flex-col items-center text-red-500"
+            >
+              <LogOut className="h-6 w-6"></LogOut>
+              <span className="text-xs mt-1">Logout</span>
+            </button>
+          </li>
         </ul>
       </div>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
-
+export default Navbar;

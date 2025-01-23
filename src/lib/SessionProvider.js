@@ -55,12 +55,13 @@ export function SessionProvider({ children }) {
       );
 
       if (response.ok) {
-        router.push("/");
+        const userData = await response.json();
+        setUser(userData);
         toast({
           title: "Success",
           description: "Logged in successfully",
         });
-        return true;
+        router.push("/");
       } else {
         const error = await response.json();
         toast({
@@ -87,9 +88,9 @@ export function SessionProvider({ children }) {
         "https://express-api-tawny-alpha.vercel.app/logout",
         {
           method: "POST",
+          credentials: "include",
         }
       );
-
       if (response.ok) {
         setUser(null);
         toast({
