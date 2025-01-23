@@ -23,10 +23,6 @@ export default function ProfilePage() {
     return <div>Loading...</div>;
   }
 
-  if (!user) {
-    return <div>Error loading profile</div>;
-  }
-
   return (
     <div className="max-w-md mx-auto mt-8">
       <h1 className="text-3xl font-bold mb-6">Your Profile</h1>
