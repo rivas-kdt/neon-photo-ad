@@ -6,7 +6,12 @@ import UploadModal from "./uploadModal";
 
 async function uploadPhoto(formData, albumId) {
   try {
-    const token = localStorage.getItem("_vercel_jwt");
+    const cookies = document.cookie.split('; ');
+    const tokenCookie = cookies.find(cookie => cookie.startsWith('_vercel_jwt='));
+    const token = tokenCookie ? tokenCookie.split('=')[1] : null;
+    if (!token) {
+      throw new Error("No token found in cookies");
+    }
     console.log(token)
     const response = await fetch(`/api/albums/${albumId}/upload`, {
       method: "POST",
