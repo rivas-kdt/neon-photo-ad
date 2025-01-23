@@ -2,8 +2,10 @@ import { cookies } from 'next/headers'
  
 export default async function Page() {
   const cookieStore = await cookies()
+  const cookiess = cookieStore.getAll()
+  console.log(cookiess)
   return cookieStore.getAll().map((cookie) => (
-    <div className="text-black" key={cookie.name}>
+    <div className="text-black text-2xl" key={cookie.name}>
       <p>Name: {cookie.name}</p>
       <p>Value: {cookie.value}</p>
     </div>
