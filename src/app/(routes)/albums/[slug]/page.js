@@ -1,33 +1,24 @@
 //albums/[id]/page.js
-import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Upload } from 'lucide-react';
-import UploadModal from "@/components/uploadModal";
+import { ArrowLeft } from "lucide-react";
 import ModMod from "@/components/modmod";
 
 // This would typically come from a database or API
-async function getAlbum({ id }) {
-  try {
-    const response = await fetch(`${process.env.BASE_URL}/api/albums/${id}`);
-    if (!response.ok) {
-      throw new Error("Failed to fetch album");
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching album:", error);
-  }
+
+export async function getAlbum(id) {
+  console.log(`https://express-api-tawny-alpha.vercel.app/albumsp/id=${id}`);
+  const albumsp = fetch(
+    `https://express-api-tawny-alpha.vercel.app/albumsp/id=${id}`
+  ).then((res) => res.json());
+  return albumsp;
 }
 
 export default async function AlbumPage({ params }) {
-  const id = (await params).id;
-  const album = await getAlbum({id});
-
-  if (!album) {
-    notFound();
-  }
+  const { slug } = await params;
+  const album = await getAlbum(slug);
+  console.log(album);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -38,9 +29,9 @@ export default async function AlbumPage({ params }) {
           </Button>
         </Link>
         <h1 className="text-3xl font-bold">{album.title}</h1>
-        <ModMod id={id}/>
+        <ModMod id={id} />
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {album.photos.map((photo) => (
           <Link href={`/photo/${photo.id}`} key={photo.id}>
             <div className="relative group">
@@ -58,8 +49,7 @@ export default async function AlbumPage({ params }) {
             </div>
           </Link>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }
-

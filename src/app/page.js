@@ -17,8 +17,11 @@ export default function Home() {
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
-        const response = await fetch("https://express-api-tawny-alpha.vercel.app/albums/user");
-
+        const response = await fetch("https://express-api-tawny-alpha.vercel.app/albums/user",
+          {
+            method: "GET",
+            credentials: 'include',
+          });
         if (response.ok) {
           const data = await response.json();
           setAlbums(data);
