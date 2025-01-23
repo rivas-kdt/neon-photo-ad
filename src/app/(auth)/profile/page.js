@@ -13,9 +13,8 @@ import { LogOut } from "lucide-react";
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
-  const { user, logout } = useSession()
+  const { user, isLoading, logout } = useSession()
   console.log(user)
 
   // if(user){
@@ -64,6 +63,10 @@ export default function ProfilePage() {
   //     description: "Your profile has been updated successfully.",
   //   });
   // };
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
 
   if (!profile) {
     return <div>Error loading profile</div>;
