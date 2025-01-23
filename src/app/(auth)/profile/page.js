@@ -29,7 +29,11 @@ export default function ProfilePage() {
       <div className="flex items-center justify-center mb-6">
         <Avatar className="h-24 w-24">
           <AvatarImage
-            src={user.profile_picture_url || "/placeholder.webp"}
+            src={
+              user.profile_picture_url === null
+                ? "/placeholder.webp"
+                : user.profile_picture_url
+            }
             alt={user.full_name}
           />
           <AvatarFallback>
@@ -51,11 +55,11 @@ export default function ProfilePage() {
         </div>
         <div>
           <Label htmlFor="fullName">Full Name</Label>
-          <Input id="fullName" type="text" value={user.full_name} readOnly/>
+          <Input id="fullName" type="text" value={user.full_name} readOnly />
         </div>
         <div>
           <Label htmlFor="bio">Bio</Label>
-          <Textarea id="bio" value={user.bio || ""} rows={4} readOnly/>
+          <Textarea id="bio" value={user.bio || ""} rows={4} readOnly />
         </div>
         <Button type="submit">Update Profile</Button>
       </form>
