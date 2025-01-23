@@ -73,6 +73,7 @@ export const SessionProvider = ({ children }) => {
     try {
       const response = await axios.post(
         `https://express-api-tawny-alpha.vercel.app/auth/logout`,
+        {},
         { withCredentials: true }
       );
       if (response.status === 200) {
