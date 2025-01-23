@@ -23,8 +23,8 @@ async function uploadPhoto(formData, albumId) {
     if (!response) {
       throw new Error("Failed to upload photo");
     }
-    const data = await response.json();
-    return data;
+    const upload = response.data
+    return upload;
   } catch (error) {
     console.error("Error uploading photo:", error);
     throw error;
