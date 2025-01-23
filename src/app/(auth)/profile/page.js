@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useSession } from "@/lib/SessionProvider";
 import { LogOut } from "lucide-react";
+import { getTokenFromCookie } from "@/lib/auth";
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState(null);
@@ -19,8 +20,7 @@ export default function ProfilePage() {
   const { logout } = useSession();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    console.log({ tokenProf: token });
+    const token = getTokenFromCookie()
     if (!token) {
       router.push("/login"); // Redirect if no token exists
       return;
