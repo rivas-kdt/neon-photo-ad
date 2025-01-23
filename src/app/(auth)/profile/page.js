@@ -10,11 +10,7 @@ import { useSession } from "@/lib/SessionProvider";
 import { LogOut } from "lucide-react";
 
 export default function ProfilePage() {
-  const [profile, setProfile] = useState();
   const { user, isLoading, logout } = useSession();
-  if (user) {
-    setProfile(user);
-  }
 
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
@@ -77,7 +73,7 @@ export default function ProfilePage() {
           <Textarea
             id="bio"
             value={user.bio || ""}
-            onChange={(e) => setProfile({ ...profile, bio: e.target.value })}
+            onChange={(e) => console.log("Talaga")}
             rows={4}
           />
         </div>
