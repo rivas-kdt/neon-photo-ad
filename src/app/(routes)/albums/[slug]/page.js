@@ -20,7 +20,7 @@ export const dynamic = "force-dynamic";
 export default async function AlbumPage({ params }) {
   const { slug } = await params;
   const data = await axios.get(
-    `https://express-api-tawny-alpha.vercel.app/albumsp/id=${slug}`,
+    `https://express-api-tawny-alpha.vercel.app/api/albumsp/id=${slug}`,
     { withCredentials: true }
   );
   const album = data.data;

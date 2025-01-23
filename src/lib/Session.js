@@ -15,7 +15,7 @@ export const SessionProvider = ({ children }) => {
   const fetchUser = async () => {
     try {
       const response = await axios.get(
-        "https://express-api-tawny-alpha.vercel.app/user",
+        "https://express-api-tawny-alpha.vercel.app/auth/user",
         { withCredentials: true }
       );
       setUser(response.data);
@@ -33,7 +33,7 @@ export const SessionProvider = ({ children }) => {
   const login = async (userData) => {
     try {
       const response = axios.post(
-        "https://express-api-tawny-alpha.vercel.app/login",
+        "https://express-api-tawny-alpha.vercel.app/auth/login",
         userData,
         { withCredentials: true }
       );
@@ -67,7 +67,7 @@ export const SessionProvider = ({ children }) => {
   const logout = async () => {
     try {
       const response = await axios.post(
-        `https://express-api-tawny-alpha.vercel.app/logout`,
+        `https://express-api-tawny-alpha.vercel.app/auth/logout`,
         { withCredentials: true }
       );
       if (response.status === 200) {
@@ -91,7 +91,7 @@ export const SessionProvider = ({ children }) => {
   const register = async (userData) => {
     try {
       const response = await axios.post(
-        "https://express-api-tawny-alpha.vercel.app/register",
+        "https://express-api-tawny-alpha.vercel.app/auth/register",
         userData,
         { withCredentials: true }
       );
