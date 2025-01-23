@@ -16,18 +16,8 @@ export default function Home() {
 
   useEffect(() => {
     const fetchAlbums = async () => {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        setIsLoading(false);
-        return;
-      }
-
       try {
-        const response = await fetch("/api/albums/user", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch("https://express-api-tawny-alpha.vercel.app/albums/user");
 
         if (response.ok) {
           const data = await response.json();
@@ -49,6 +39,7 @@ export default function Home() {
 
     fetchAlbums();
   }, [toast]);
+  console.log(albums)
 
   if (isLoading) {
     return <div>Loading...</div>;
