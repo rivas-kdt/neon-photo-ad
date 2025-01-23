@@ -28,7 +28,7 @@ export default function ProfilePage() {
       <h1 className="text-3xl font-bold mb-6">Your Profile</h1>
       <div className="flex items-center justify-center mb-6">
         <Avatar className="h-24 w-24">
-          <AvatarImage src={user.profile_picture_url} alt={user.full_name} />
+          <AvatarImage src={user.profile_picture_url || '/placeholder.webp'} alt={user.full_name} />
           <AvatarFallback className={"bg-white"}>
             {user.full_name
               .split(" ")
