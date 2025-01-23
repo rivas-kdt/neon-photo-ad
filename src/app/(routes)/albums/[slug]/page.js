@@ -23,8 +23,8 @@ export default async function AlbumPage({ params }) {
     `https://express-api-tawny-alpha.vercel.app/albumsp/id=${slug}`,
     { withCredentials: true }
   );
-  const album = data.json();
-  console.log(album.data);
+  // const album = data.json();
+  console.log(data.data);
 
   return (
     <div className="container mx-auto px-4 py-8">
