@@ -11,7 +11,7 @@ export async function POST(request, { params }) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const claims = jwt.verify(cookie, process.env.JWT_SECRET);
+  const claims = verifyToken(token);
   const userId = claims.id;
   if (!userId) {
     return NextResponse.json({ error: "Invalid token" }, { status: 401 });

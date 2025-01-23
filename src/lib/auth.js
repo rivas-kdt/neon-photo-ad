@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 export async function verifyToken(token) {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    return decoded.userId;
+    return decoded;
   } catch (error) {
     console.error("Error verifying token:", error);
     return null;
