@@ -6,7 +6,8 @@ import UploadModal from "./uploadModal";
 
 async function uploadPhoto(formData, albumId) {
   try {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("_vercel_jwt");
+    console.log(token)
     const response = await fetch(`/api/albums/${albumId}/upload`, {
       method: "POST",
       body: formData,
