@@ -23,8 +23,7 @@ export default async function AlbumPage({ params }) {
     `https://express-api-tawny-alpha.vercel.app/albumsp/id=${slug}`,
     { withCredentials: true }
   );
-  // const album = data.json();
-  console.log(data.data);
+  const album = data.data;
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -34,10 +33,10 @@ export default async function AlbumPage({ params }) {
             <ArrowLeft className=" h-4 w-4" />
           </Button>
         </Link>
-        <h1 className="text-3xl font-bold">{"album.title"}</h1>
+        <h1 className="text-3xl font-bold">{album.title}</h1>
         <ModMod id={slug} />
       </div>
-      {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {album.photos.map((photo) => (
           <Link href={`/photo/${photo.id}`} key={photo.id}>
             <div className="relative group">
@@ -55,7 +54,7 @@ export default async function AlbumPage({ params }) {
             </div>
           </Link>
         ))}
-      </div> */}
+      </div>
     </div>
   );
 }
