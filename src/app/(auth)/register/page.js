@@ -1,11 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useToast } from "@/hooks/use-toast";
 import { useSession } from "@/lib/SessionProvider";
 
 export default function RegisterPage() {
@@ -13,8 +11,9 @@ export default function RegisterPage() {
     username: "",
     email: "",
     password: "",
-    fullName: "",
+    full_name: "",
   });
+  const { register } = useSession();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,7 +22,6 @@ export default function RegisterPage() {
       [name]: value,
     }));
   };
-  const { register } = useSession();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -73,7 +71,7 @@ export default function RegisterPage() {
             id="fullName"
             type="text"
             name="fullName"
-            value={formData.fullName}
+            value={formData.full_name}
             onChange={handleChange}
             required
           />

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -11,7 +11,6 @@ export default function LoginPage() {
     email: "",
     password: "",
   });
-
   const { login } = useSession();
 
   const handleChange = (e) => {
@@ -26,22 +25,6 @@ export default function LoginPage() {
     e.preventDefault();
     await login(formData);
   };
-
-  useEffect(() => {
-    const fetchPhotos = async () => {
-      try {
-        const response = await fetch(
-          "https://express-api-tawny-alpha.vercel.app/photos"
-        );
-        const data = await response.json();
-        console.log(data);
-        return data;
-      } catch (error) {
-        console.error("Error!", error);
-      }
-    };
-    fetchPhotos();
-  }, []);
 
   return (
     <div className="max-w-md mx-auto mt-8">

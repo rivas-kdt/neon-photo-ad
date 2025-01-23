@@ -6,7 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 
 const SessionContext = createContext();
 
-export function SessionProvider({ children }) {
+export function SessionProvider2({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
