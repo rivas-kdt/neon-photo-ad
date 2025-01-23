@@ -15,12 +15,12 @@ export default function ProfilePage() {
   const [profile, setProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
-  const { user, logout } = useSession();
-
+  const { user, logout } = useSession()
   console.log(user)
-  if(user){
-    setIsLoading(false)
-  }
+
+  // if(user){
+  //   setIsLoading(false)
+  // }
 
   // useEffect(() => {
   //   const token = getTokenFromCookie()
@@ -56,14 +56,14 @@ export default function ProfilePage() {
   //   fetchProfile();
   // }, [router, toast]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // Implement profile update logic here
-    toast({
-      title: "Profile Updated",
-      description: "Your profile has been updated successfully.",
-    });
-  };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   // Implement profile update logic here
+  //   toast({
+  //     title: "Profile Updated",
+  //     description: "Your profile has been updated successfully.",
+  //   });
+  // };
 
   if (isLoading) {
     return <div>Loading...</div>;
