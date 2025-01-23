@@ -10,14 +10,14 @@ import { LogOut } from "lucide-react";
 export default function ProfilePage() {
   const { user, isLoading, logout } = useSession();
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   // Implement profile update logic here
-  //   toast({
-  //     title: "Profile Updated",
-  //     description: "Your profile has been updated successfully.",
-  //   });
-  // };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // Implement profile update logic here
+    toast({
+      title: "Profile Updated",
+      description: "Your profile has been updated successfully.",
+    });
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -33,9 +33,7 @@ export default function ProfilePage() {
       <div className="flex items-center justify-center mb-6">
         <Avatar className="h-24 w-24">
           <AvatarImage
-            src={
-              user.profile_picture_url || "/placeholder.svg"
-            }
+            src={user.profile_picture_url || "/placeholder.svg"}
             alt={user.full_name}
           />
           <AvatarFallback>
