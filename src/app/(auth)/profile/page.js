@@ -65,10 +65,6 @@ export default function ProfilePage() {
   //   });
   // };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   if (!profile) {
     return <div>Error loading profile</div>;
   }
