@@ -1,5 +1,4 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -35,7 +34,7 @@ export default function ProfilePage() {
         <Avatar className="h-24 w-24">
           <AvatarImage
             src={
-              user.profile_picture_url || "/placeholder.svg?height=96&width=96"
+              user.profile_picture_url || "/placeholder.svg"
             }
             alt={user.full_name}
           />
@@ -62,9 +61,7 @@ export default function ProfilePage() {
             id="fullName"
             type="text"
             value={user.full_name}
-            onChange={(e) =>
-              setProfile({ ...profile, full_name: e.target.value })
-            }
+            onChange={console.log("Talaga")}
           />
         </div>
         <div>
@@ -72,7 +69,7 @@ export default function ProfilePage() {
           <Textarea
             id="bio"
             value={user.bio || ""}
-            onChange={(e) => console.log("Talaga")}
+            onChange={console.log("Talaga")}
             rows={4}
           />
         </div>
