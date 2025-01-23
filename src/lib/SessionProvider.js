@@ -23,7 +23,6 @@ export function SessionProvider({ children }) {
             credentials: 'include',
           }
         );
-        console.log(response);
         if (response.ok) {
           const userData = await response.json();
           setUser(userData);
