@@ -36,7 +36,7 @@ export default function ProfilePage() {
             src={user.profile_picture_url || "/placeholder.svg"}
             alt={user.full_name}
           />
-          <AvatarFallback>
+          <AvatarFallback className={'bg-white'}>
             {user.full_name
               .split(" ")
               .map((n) => n[0])
@@ -55,21 +55,11 @@ export default function ProfilePage() {
         </div>
         <div>
           <Label htmlFor="fullName">Full Name</Label>
-          <Input
-            id="fullName"
-            type="text"
-            value={user.full_name}
-            onChange={console.log("Talaga")}
-          />
+          <Input id="fullName" type="text" value={user.full_name} />
         </div>
         <div>
           <Label htmlFor="bio">Bio</Label>
-          <Textarea
-            id="bio"
-            value={user.bio || ""}
-            onChange={console.log("Talaga")}
-            rows={4}
-          />
+          <Textarea id="bio" value={user.bio || ""} rows={4} />
         </div>
         <Button type="submit">Update Profile</Button>
       </form>
