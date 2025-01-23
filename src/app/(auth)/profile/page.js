@@ -12,6 +12,9 @@ import { LogOut } from "lucide-react";
 export default function ProfilePage() {
   const [profile, setProfile] = useState();
   const { user, isLoading, logout } = useSession();
+  if (user) {
+    setProfile(user);
+  }
 
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
@@ -73,7 +76,7 @@ export default function ProfilePage() {
           <Label htmlFor="bio">Bio</Label>
           <Textarea
             id="bio"
-            value={profile.bio || ""}
+            value={user.bio || ""}
             onChange={(e) => setProfile({ ...profile, bio: e.target.value })}
             rows={4}
           />
