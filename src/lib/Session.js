@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useToast } from "@/hooks/use-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -34,7 +34,7 @@ export const SessionProvider = ({ children }) => {
     try {
       const response = axios.post(
         "https://express-api-tawny-alpha.vercel.app/auth/login",
-        userData,
+        JSON.stringify(userData),
         { withCredentials: true }
       );
       if (response.status === 200) {
