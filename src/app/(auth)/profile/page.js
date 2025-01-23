@@ -18,6 +18,9 @@ export default function ProfilePage() {
   const { user, logout } = useSession();
 
   console.log(user)
+  if(user){
+    setIsLoading(false)
+  }
 
   // useEffect(() => {
   //   const token = getTokenFromCookie()
