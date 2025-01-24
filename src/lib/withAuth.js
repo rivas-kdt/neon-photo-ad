@@ -2,16 +2,27 @@
 
 import { useSession } from "@/lib/Session";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export function withAuth(WrappedComponent) {
   return function WithAuth(props) {
     const { user, loading } = useSession();
     const router = useRouter();
+    const [isAuthorized, setIsAuthorized] = useState(false);
+
+    // useEffect(() => {
+    //   if (!loading && !user) {
+    //     router.push("/login");
+    //   }
+    // }, [user, loading, router]);
 
     useEffect(() => {
-      if (!loading && !user) {
-        router.push("/login");
+      if (!loading) {
+        if (user) {
+          setIsAuthorized(true);
+        } else {
+          router.push("/login");
+        }
       }
     }, [user, loading, router]);
 
@@ -23,6 +34,10 @@ export function withAuth(WrappedComponent) {
       return null;
     }
 
-    return <WrappedComponent {...props} />;
+    if (loading) {
+      return <div className="text-center mt-10">Loading...</div>;
+    }
+
+    return isAuthorized ? <WrappedComponent {...props} /> : null;
   };
 }
