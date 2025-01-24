@@ -14,10 +14,9 @@ export const SessionProvider = ({ children }) => {
 
   const fetchUser = async () => {
     try {
-      const response = await axios.get(
-        "/api/auth/user",
-        { withCredentials: true }
-      );
+      const response = await axios.get("/api/auth/user", {
+        withCredentials: true,
+      });
       setUser(response.data);
     } catch (error) {
       setUser(null);
@@ -32,16 +31,12 @@ export const SessionProvider = ({ children }) => {
 
   const login = async (userData) => {
     try {
-      const response = await axios.post(
-        "/api/auth/login",
-        userData,
-        {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios.post("/api/auth/login", userData, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       if (response.status === 200) {
         setUser(response.data);
         toast({
@@ -96,16 +91,12 @@ export const SessionProvider = ({ children }) => {
 
   const register = async (userData) => {
     try {
-      const response = await axios.post(
-        "/api/auth/register",
-        userData,
-        {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios.post("/api/auth/register", userData, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       if (response.status === 201) {
         console.log(response.data);
         setUser(response.data);

@@ -18,7 +18,7 @@ export async function GET(req) {
     }
     const user = await sql`SELECT * FROM users WHERE id=${token.id}`;
     const { password_hash, ...data } = user[0];
-    return NextResponse.json(data, { status: 401 });
+    return NextResponse.json(data, { status: 200 });
   } catch (error) {
     return NextResponse.json("Unauthenticated");
   }
