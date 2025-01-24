@@ -23,6 +23,6 @@ export function setTokenCookie(token) {
 
 export function getTokenFromCookie() {
   const cookieStore = cookies()
-  const token = cookieStore.get("jwt")?.value
+  const token = cookieStore.get("token")?.value
   return token
 }
