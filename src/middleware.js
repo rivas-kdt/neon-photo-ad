@@ -6,5 +6,5 @@ export async function middleware(request) {
   const jwt = cookieStore.get("_vercel_jwt");
   console.log(cookieStore);
 
-  return jwt;
+  return NextResponse.next();
 }
