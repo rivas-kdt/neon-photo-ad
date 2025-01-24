@@ -99,7 +99,12 @@ export const SessionProvider = ({ children }) => {
       const response = await axios.post(
         "https://express-api-tawny-alpha.vercel.app/auth/register",
         userData,
-        { withCredentials: true }
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
       if (response.status === 201) {
         setUser(response.data);
@@ -129,7 +134,7 @@ export const SessionProvider = ({ children }) => {
   };
 
   return (
-    <SessionContext.Provider value={{ user, loading, login, logout }}>
+    <SessionContext.Provider value={{ user, loading, register, login, logout }}>
       {children}
     </SessionContext.Provider>
   );
