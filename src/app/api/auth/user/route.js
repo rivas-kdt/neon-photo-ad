@@ -1,3 +1,4 @@
+import { getTokenFromCookie } from "@/lib/lib";
 import { neon } from "@neondatabase/serverless";
 import { NextResponse } from "next/server";
 
@@ -5,6 +6,8 @@ export async function GET(req) {
   try {
     const sql = neon(process.env.DATABASE_URL);
     const cookie = req.cookies["jwt"];
+    const id = getTokenFromCookie()
+    console.log(id)
     if (!cookie) {
       return NextResponse.json("Unauthorized", { status: 401 });
     }
