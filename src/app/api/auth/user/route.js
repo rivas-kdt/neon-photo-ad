@@ -1,6 +1,7 @@
 import { getTokenFromCookie } from "@/lib/lib";
 import { neon } from "@neondatabase/serverless";
 import { NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
 
 export async function GET(req) {
   try {
