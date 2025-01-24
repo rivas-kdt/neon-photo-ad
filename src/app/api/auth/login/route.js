@@ -1,15 +1,18 @@
 import { neon } from "@neondatabase/serverless";
 import { NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+import { setTokenCookie } from "@/lib/lib";
 
 export async function POST(req) {
   try {
-    const email = req.body.email;
-    const password = req.body.password;
+    const { email, password } = await req.json();
+    console.log(email);
     const sql = neon(process.env.DATABASE_URL);
     const users = await sql`SELECT * FROM users WHERE email = ${email}`;
 
     if (users.length === 0) {
-      res.status(404).json("Password does not match!");
+      return NextResponse.json("No users found", { status: 404 });
     }
 
     const user = users[0];
@@ -22,12 +25,7 @@ export async function POST(req) {
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
-    res.cookie("jwt", token, {
-      maxAge: 60 * 60 * 1000,
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "Lax",
-    });
+    setTokenCookie(token);
     const { password_hash, ...data } = user;
     return NextResponse.json(data, { status: 200 });
   } catch (error) {
