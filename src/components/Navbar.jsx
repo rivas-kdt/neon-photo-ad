@@ -7,6 +7,7 @@ import { useSession } from "@/lib/Session";
 const Navbar = () => {
   const pathname = usePathname();
   const { user, loading, logout } = useSession;
+  console.log(user)
 
   const navItems = [
     { href: "/", icon: Home, label: "Home" },
