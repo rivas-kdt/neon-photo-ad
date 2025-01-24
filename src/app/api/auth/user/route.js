@@ -7,16 +7,16 @@ export async function GET(req) {
   try {
     const sql = neon(process.env.DATABASE_URL);
     const cookie = getTokenFromCookie();
-    const user_id = verifyToken(cookie);
+    const token = jwt.verify(token, process.env.JWT_SECRET);
     console.log(cookie);
-    console.log(user_id);
+    console.log(token);
     if (!cookie) {
       return NextResponse.json("Unauthorized", { status: 401 });
     }
-    if (!user_id) {
+    if (!token) {
       return NextResponse.json("Unauthenticated", { status: 401 });
     }
-    const user = await sql`SELECT * FROM users WHERE id=${user_id}`;
+    const user = await sql`SELECT * FROM users WHERE id=${token.id}`;
     const { password_hash, ...data } = user[0];
     return NextResponse.json(data, { status: 401 });
   } catch (error) {
