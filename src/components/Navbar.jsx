@@ -6,7 +6,7 @@ import { useSession } from "@/lib/Session";
 
 const Navbar = () => {
   const pathname = usePathname();
-  const { user, loading } = useSession;
+  const { user, loading, logout } = useSession;
 
   const navItems = [
     { href: "/", icon: Home, label: "Home" },
@@ -39,7 +39,7 @@ const Navbar = () => {
               ))}
               <li>
                 <button
-                  onClick={console.log("Try")}
+                  onClick={logout}
                   className="flex flex-col items-center text-red-500"
                 >
                   <LogOut className="h-6 w-6"></LogOut>
@@ -48,10 +48,24 @@ const Navbar = () => {
               </li>
             </ul>
           ) : (
-            <ul>
+            <ul className="flex justify-around py-2">
               <li>
-                <Link href={"/login"}>LOGIN</Link>
-                <Link href={"/register"}>REGISTER</Link>
+                <Link
+                  href={"/login"}
+                  className={`flex flex-col items-center ${
+                    pathname === "/login" ? "text-blue-500" : "text-gray-500"
+                  }`}
+                >
+                  LOGIN
+                </Link>
+                <Link
+                  href={"/register"}
+                  className={`flex flex-col items-center ${
+                    pathname === "/register" ? "text-blue-500" : "text-gray-500"
+                  }`}
+                >
+                  REGISTER
+                </Link>
               </li>
             </ul>
           )}
