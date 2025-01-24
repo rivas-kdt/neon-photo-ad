@@ -22,7 +22,7 @@ const Navbar = () => {
         <div className=" w-full h-full bg-[#f2f2f2] animate-pulse"></div>
       ) : (
         <div className="container mx-auto px-4">
-          {user && (
+          {user ? (
             <ul className="flex justify-around py-2">
               {navItems.map((item) => (
                 <li key={item.href}>
@@ -45,6 +45,13 @@ const Navbar = () => {
                   <LogOut className="h-6 w-6"></LogOut>
                   <span className="text-xs mt-1">Logout</span>
                 </button>
+              </li>
+            </ul>
+          ) : (
+            <ul>
+              <li>
+                <Link href={"/login"}>LOGIN</Link>
+                <Link href={"/register"}>REGISTER</Link>
               </li>
             </ul>
           )}
