@@ -1,13 +1,12 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Camera, Map, User, Home, Upload, LogOut } from "lucide-react";
+import { Camera, Map, User, Home, Upload, LogOut, LogIn, UserPlus } from "lucide-react";
 import { useSession } from "@/lib/Session";
 
 const Navbar = () => {
   const pathname = usePathname();
-  const { user, loading, logout } = useSession;
-  console.log(user)
+  const { user, loading, logout } = useSession();
 
   const navItems = [
     { href: "/", icon: Home, label: "Home" },
@@ -52,20 +51,24 @@ const Navbar = () => {
             <ul className="flex justify-around py-2">
               <li>
                 <Link
-                  href={"/login"}
+                  href={'/login'}
                   className={`flex flex-col items-center ${
-                    pathname === "/login" ? "text-blue-500" : "text-gray-500"
+                    pathname === '/login' ? "text-blue-500" : "text-gray-500"
                   }`}
                 >
-                  LOGIN
+                  <LogIn className="h-6 w-6" />
+                  <span className="text-xs mt-1">Login</span>
                 </Link>
+              </li>
+              <li>
                 <Link
-                  href={"/register"}
+                  href={'/register'}
                   className={`flex flex-col items-center ${
-                    pathname === "/register" ? "text-blue-500" : "text-gray-500"
+                    pathname === '/register' ? "text-blue-500" : "text-gray-500"
                   }`}
                 >
-                  REGISTER
+                  <UserPlus className="h-6 w-6" />
+                  <span className="text-xs mt-1">Register</span>
                 </Link>
               </li>
             </ul>

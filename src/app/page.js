@@ -74,12 +74,12 @@ export default function Home() {
           </Link>
         </div>
         <div className="grid grid-cols-2 gap-4">
-          {albums.map((album) => (
+          {albums && albums.map((album) => (
             <Link href={`/albums/${album.id}`} key={album.id}>
               <Card>
                 <CardContent className="p-4">
                   <Image
-                    src={album.cover_photo_url || `/placeholder.webp`}
+                    src={album.cover_photo_url || '/placeholder.webp'}
                     alt={album.title}
                     width={150}
                     height={150}

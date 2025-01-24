@@ -107,6 +107,7 @@ export const SessionProvider = ({ children }) => {
         }
       );
       if (response.status === 201) {
+        console.log(response.data);
         setUser(response.data);
         toast({
           title: "Success",
