@@ -7,7 +7,7 @@ export async function GET(req) {
   try {
     const sql = neon(process.env.DATABASE_URL);
     const cookie = getTokenFromCookie();
-    const token = jwt.verify(token, process.env.JWT_SECRET);
+    const token = jwt.verify(cookie, process.env.JWT_SECRET);
     console.log(cookie);
     console.log(token);
     if (!cookie) {
