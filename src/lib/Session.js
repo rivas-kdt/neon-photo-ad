@@ -8,15 +8,18 @@ const SessionContext = createContext();
 
 export const SessionProvider = ({ children }) => {
   const [user, setUser] = useState();
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
   const { toast } = useToast();
 
   const fetchUser = async () => {
     try {
-      const response = await axios.get("/api/auth/user", {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        "https://express-api-tawny-alpha.vercel.app/auth/user",
+        {
+          withCredentials: true,
+        }
+      );
       setUser(response.data);
     } catch (error) {
       setUser(null);
@@ -31,12 +34,16 @@ export const SessionProvider = ({ children }) => {
 
   const login = async (userData) => {
     try {
-      const response = await axios.post("/api/auth/login", userData, {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.post(
+        "https://express-api-tawny-alpha.vercel.app/auth/login",
+        userData,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.status === 200) {
         setUser(response.data);
         toast({
@@ -61,13 +68,15 @@ export const SessionProvider = ({ children }) => {
         variant: "destructive",
       });
       return false;
+    } finally {
+      setLoading(false);
     }
   };
 
   const logout = async () => {
     try {
       const response = await axios.post(
-        `/api/auth/logout`,
+        `https://express-api-tawny-alpha.vercel.app/auth/logout`,
         {},
         { withCredentials: true }
       );
@@ -91,20 +100,22 @@ export const SessionProvider = ({ children }) => {
 
   const register = async (userData) => {
     try {
-      const response = await axios.post("/api/auth/register", userData, {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.post(
+        "https://express-api-tawny-alpha.vercel.app/auth/register",
+        userData,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.status === 201) {
-        console.log(response.data);
-        setUser(response.data);
         toast({
           title: "Success",
           description: "Account created successfully. Logged in.",
         });
-        router.push("/"); // Redirect to home or dashboard
+        router.push("/login"); // Redirect to home or dashboard
       } else {
         toast({
           title: "Error",

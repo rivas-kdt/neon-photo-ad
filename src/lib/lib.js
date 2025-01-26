@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 export function verifyToken(token) {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    return decoded.userId;
+    return decoded.id;
   } catch (error) {
     console.error("Error verifying token:", error);
     return null;
@@ -21,8 +21,8 @@ export function setTokenCookie(token) {
   });
 }
 
-export function getTokenFromCookie() {
-  const cookieStore = cookies()
+export async function getTokenFromCookie() {
+  const cookieStore = await cookies()
   const token = cookieStore.get("token")?.value
   return token
 }
