@@ -12,7 +12,7 @@ export function verifyToken(token) {
 }
 
 export function setTokenCookie(token) {
-  cookies().set("token", token, {
+  cookies().set("_vercel_jwt" || "jwt", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "none",
@@ -22,7 +22,7 @@ export function setTokenCookie(token) {
 }
 
 export async function getTokenFromCookie() {
-  const cookieStore = await cookies()
-  const token = cookieStore.get("token")?.value
-  return token
+  const cookieStore = await cookies();
+  const token = cookieStore.get("_vercel_jwt" || "jwt")?.value;
+  return token;
 }

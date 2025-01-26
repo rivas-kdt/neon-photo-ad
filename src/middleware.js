@@ -1,4 +1,6 @@
-import { NextResponse } from "next/server";
+import { getTokenFromCookie } from "./lib/lib";
 
-export function middleware(request){
+export function middleware(){
+    const token = getTokenFromCookie()
+    console.log(token)
 }
