@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import { getTokenFromCookie } from "./lib/lib";
 
 export async function middleware() {
