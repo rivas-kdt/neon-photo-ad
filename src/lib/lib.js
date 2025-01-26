@@ -12,7 +12,7 @@ export function verifyToken(token) {
 }
 
 export function setTokenCookie(token) {
-  cookies().set("_vercel_jwt" || "jwt", token, {
+  cookies().set("jwt", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "none",
