@@ -69,7 +69,7 @@ export default function Home() {
           </Link>
         </div>
         <div className="grid grid-cols-2 gap-4">
-          {albums ? (
+          {albums.length > 0 ? (
             albums.map((album) => (
               <Link href={`/albums/${album.id}`} key={album.id}>
                 <Card>
