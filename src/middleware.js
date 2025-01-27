@@ -7,5 +7,5 @@ export async function middleware() {
 
   const cookieStore = await cookies();
   const token = cookieStore.get("jwt");
-  console.log({ "2nd": token });
+  console.log({ "2nd": token.value });
 }
