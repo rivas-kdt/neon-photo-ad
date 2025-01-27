@@ -10,7 +10,7 @@ export async function GET(req) {
     // const cookie = getTokenFromCookie();
 
     const cookieStore = await cookies();
-    const cookie = cookieStore.get("jwt");
+    const cookie = cookieStore.get("jwt")?.value;
     const token = jwt.verify(cookie, process.env.JWT_SECRET);
     console.log({ jwtAPIuser: cookie });
     console.log(token);
