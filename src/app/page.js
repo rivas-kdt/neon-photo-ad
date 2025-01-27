@@ -69,7 +69,7 @@ export default function Home() {
           </Link>
         </div>
         <div className="grid grid-cols-2 gap-4">
-          {albums &&
+          {albums ? (
             albums.map((album) => (
               <Link href={`/albums/${album.id}`} key={album.id}>
                 <Card>
@@ -88,7 +88,10 @@ export default function Home() {
                   </CardContent>
                 </Card>
               </Link>
-            ))}
+            ))
+          ) : (
+            <></>
+          )}
         </div>
       </section>
     </div>
