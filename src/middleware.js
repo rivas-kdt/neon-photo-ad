@@ -6,6 +6,6 @@ export async function middleware() {
   console.log({ "1st": token2 });
 
   const cookieStore = await cookies();
-  const token = cookieStore.get("_vercel_jwt");
+  const token = cookieStore.get("jwt");
   console.log({ "2nd": cookieStore });
 }
