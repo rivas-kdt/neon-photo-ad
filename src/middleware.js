@@ -3,7 +3,7 @@ import axios from "axios";
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export async function getCookie() {
-  const response = axios.get(`${process.env.API_URL}/auth/user`, {
+  const response = axios.get(`${process.env.API_URL}/auth/cookie`, {
     withCredentials: true,
   });
   await wait(10000);
