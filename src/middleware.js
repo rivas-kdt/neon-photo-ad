@@ -1,11 +1,11 @@
-import { cookies } from "next/headers";
-import { getTokenFromCookie } from "./lib/lib";
+import axios from "axios";
+
+export async function getCookie() {
+  const response = axios.get("/api/auth/user", { withCredentials: true });
+  return response;
+}
 
 export async function middleware() {
-  const token2 = getTokenFromCookie();
-  console.log({ "1st": token2 });
-
-  const cookieStore = await cookies();
-  const token = cookieStore.get("jwt");
+  const token = await getCookie();
   console.log({ "2nd": token });
 }
