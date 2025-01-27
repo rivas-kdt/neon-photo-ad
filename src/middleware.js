@@ -1,7 +1,12 @@
 import axios from "axios";
 
 export async function getCookie() {
-  const response = axios.get("/api/auth/user", { withCredentials: true });
+  const response = axios.get(`${process.env.API_URL}/auth/user`, {
+    withCredentials: true,
+  });
+  if (!response.ok) {
+    return null;
+  }
   return response;
 }
 
